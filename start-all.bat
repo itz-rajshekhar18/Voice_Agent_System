@@ -6,7 +6,7 @@ echo ========================================
 echo.
 
 echo Starting Backend Server...
-start "Backend API" cmd /k "cd backend && python api.py"
+start "Backend API" cmd /k "cd backend && call venv\Scripts\activate.bat && python api.py"
 
 timeout /t 3 /nobreak > nul
 

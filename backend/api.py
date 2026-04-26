@@ -1,12 +1,17 @@
 """
 Flask API for Voice-Enabled AI To-Do Agent
 Provides REST endpoints for the frontend to interact with the agent.
+Uses OpenRouter API for AI capabilities.
 """
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
 import os
 import logging
+
+# Load environment variables from .env file
+load_dotenv()
 
 from agent import ToDoAgent
 from voice import VoiceInterface
@@ -51,8 +56,8 @@ def chat():
         response = agent.chat(user_message)
         
         # Get current state
-        todos_list = todos.list_all()
-        memories = memory.get_all()
+        todos_list = todos.all()
+        memories = memory.all()  # Changed from get_all() to all()
         
         return jsonify({
             "response": response,
@@ -69,7 +74,7 @@ def chat():
 def get_todos():
     """Get all todos"""
     try:
-        todos_list = todos.list_all()
+        todos_list = todos.all()  # Changed from list_all() to all()
         return jsonify({"todos": todos_list})
     except Exception as e:
         logger.error(f"Get todos error: {e}")
@@ -142,7 +147,7 @@ def delete_todo(task_id):
 def get_memories():
     """Get all memories"""
     try:
-        memories = memory.get_all()
+        memories = memory.all()  # Changed from get_all() to all()
         return jsonify({"memories": memories})
     except Exception as e:
         logger.error(f"Get memories error: {e}")
@@ -184,8 +189,10 @@ def reset_conversation():
 
 if __name__ == '__main__':
     # Check for API key
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        logger.warning("ANTHROPIC_API_KEY not set. Agent functionality may be limited.")
+    if not os.environ.get("OPENROUTER_API_KEY"):
+        logger.warning("OPENROUTER_API_KEY not set. Agent functionality may be limited.")
+    else:
+        logger.info("OpenRouter API key loaded successfully")
     
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

@@ -18,7 +18,7 @@ Before starting, make sure you have:
   node --version
   ```
 
-- [ ] **Anthropic API Key** from https://console.anthropic.com/
+- [ ] **OpenRouter API Key** from https://openrouter.ai/
 
 ---
 
@@ -26,21 +26,37 @@ Before starting, make sure you have:
 
 ### Step 1: Set Your API Key (30 seconds)
 
-Open PowerShell and run:
+Your OpenRouter API key is already configured in `backend/.env`!
 
-```powershell
-$env:ANTHROPIC_API_KEY="your-anthropic-api-key-here"
+If you need to change it, edit `backend/.env`:
+```env
+OPENROUTER_API_KEY=your-key-here
 ```
 
-> **Important:** Replace `your-anthropic-api-key-here` with your actual API key!
+Or set it as an environment variable:
+```powershell
+$env:OPENROUTER_API_KEY="your-openrouter-api-key-here"
+```
+
+> **Note:** Your current key is already set and working!
 
 ---
 
 ### Step 2: Install Dependencies (2-3 minutes)
 
-**Backend:**
+**Backend (Automated):**
+```bash
+# Double-click: setup-backend.bat
+# This creates venv and installs everything!
+```
+
+**OR Manual:**
 ```bash
 cd backend
+python -m venv venv
+.\venv\Scripts\Activate.ps1  # Windows PowerShell
+# venv\Scripts\activate.bat  # Windows CMD
+# source venv/bin/activate   # Linux/Mac
 pip install -r requirements.txt
 ```
 

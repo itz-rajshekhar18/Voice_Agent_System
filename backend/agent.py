@@ -1,5 +1,5 @@
 """
-agent.py — Claude-powered agent with tool-calling logic.
+agent.py — Claude-powered agent with tool-calling logic via OpenRouter.
 
 Responsibilities:
   - Maintain conversation history
@@ -12,7 +12,7 @@ Responsibilities:
 import json
 import re
 import os
-from anthropic import Anthropic
+import requests
 from todo_manager import ToDoManager
 from memory import MemoryStore
 
@@ -57,7 +57,9 @@ class ToDoAgent:
     def __init__(self, memory_store: MemoryStore, todo_manager: ToDoManager):
         self.memory   = memory_store
         self.todos    = todo_manager
-        self.client   = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY", ""))
+        self.api_key  = os.environ.get("OPENROUTER_API_KEY", "")
+        self.api_url  = "https://openrouter.ai/api/v1/chat/completions"
+        self.model    = "openai/gpt-4o-mini"  # Using GPT-4o Mini via OpenRouter
         self.history  = []          # list of {"role": ..., "content": ...}
         self.max_history = 20       # rolling window to stay within context limits
 
@@ -98,13 +100,40 @@ class ToDoAgent:
 
     def _call_claude(self) -> str:
         system = SYSTEM_PROMPT + self._build_context_prefix()
-        response = self.client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=800,
-            system=system,
-            messages=self.history,
-        )
-        return response.content[0].text
+        
+        # Prepare messages for OpenRouter API
+        messages = [{"role": msg["role"], "content": msg["content"]} for msg in self.history]
+        
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "http://localhost:5000",  # Optional: for rankings
+            "X-Title": "Voice AI Assistant"  # Optional: for rankings
+        }
+        
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "max_tokens": 800,
+            "temperature": 0.7,
+        }
+        
+        # Add system message to the first message if using OpenRouter
+        if messages:
+            # OpenRouter expects system content in messages array
+            messages.insert(0, {"role": "system", "content": system})
+            payload["messages"] = messages
+        
+        try:
+            response = requests.post(self.api_url, headers=headers, json=payload, timeout=30)
+            response.raise_for_status()
+            data = response.json()
+            return data["choices"][0]["message"]["content"]
+        except requests.exceptions.RequestException as e:
+            print(f"OpenRouter API error: {e}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"Response: {e.response.text}")
+            return "I'm having trouble connecting to the AI service. Please try again."
 
     def _process_tools(self, raw: str) -> tuple[str, list[str]]:
         """

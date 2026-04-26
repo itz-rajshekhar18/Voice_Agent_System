@@ -35,42 +35,99 @@ That's it! 🎉
 
 ### Backend Setup
 
+#### Option 1: Automated Setup (Recommended)
+
+**Windows:**
+```bash
+# Double-click setup-backend.bat
+# OR run in PowerShell:
+.\setup-backend.ps1
+```
+
+This will:
+- Create virtual environment
+- Activate it
+- Install all dependencies
+- Verify installation
+
+#### Option 2: Manual Setup
+
 1. Open terminal in the project root
+
 2. Navigate to backend:
    ```bash
    cd backend
    ```
 
-3. Install dependencies:
+3. Create virtual environment:
+   ```bash
+   python -m venv venv
+   ```
+
+4. Activate virtual environment:
+   
+   **Windows PowerShell:**
+   ```powershell
+   .\venv\Scripts\Activate.ps1
+   ```
+   
+   **Windows CMD:**
+   ```cmd
+   venv\Scripts\activate.bat
+   ```
+   
+   **Linux/Mac:**
+   ```bash
+   source venv/bin/activate
+   ```
+   
+   You should see `(venv)` at the start of your prompt.
+
+5. Upgrade pip:
+   ```bash
+   python -m pip install --upgrade pip
+   ```
+
+6. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Set API key (choose one method):
+7. Set API key (choose one method):
 
-   **Option A - Temporary (current session only):**
+   **Option A - Using .env file (recommended):**
+   
+   The `.env` file already exists with your OpenRouter API key!
+   
+   Verify it contains:
+   ```env
+   OPENROUTER_API_KEY=your-key-here
+   PORT=5000
+   FLASK_ENV=development
+   ```
+
+   **Option B - Environment variable (temporary):**
    ```powershell
    # PowerShell
-   $env:ANTHROPIC_API_KEY="your-key"
+   $env:OPENROUTER_API_KEY="your-key"
    ```
    ```cmd
    # CMD
-   set ANTHROPIC_API_KEY=your-key
+   set OPENROUTER_API_KEY=your-key
    ```
 
-   **Option B - Permanent (recommended):**
-   - Windows: Add to System Environment Variables
-   - Or create a `.env` file in backend folder
-
-5. Start the backend:
+8. Start the backend:
    ```bash
    python api.py
    ```
 
    You should see:
    ```
+   INFO:__main__:OpenRouter API key loaded successfully
    * Running on http://0.0.0.0:5000
    ```
+
+**Important:** Always activate the virtual environment before working on the backend!
 
 ### Frontend Setup
 

@@ -7,6 +7,8 @@ __pycache__/
 env/
 venv/
 ENV/
+env.bak/
+venv.bak/
 build/
 develop-eggs/
 dist/
@@ -23,6 +25,11 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# Virtual Environment
+backend/venv/
+backend/env/
+backend/ENV/
 
 # Node
 node_modules/

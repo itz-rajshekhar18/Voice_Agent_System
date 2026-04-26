@@ -8,20 +8,46 @@ Welcome to the Voice-Enabled AI Assistant documentation! This index will help yo
 
 **New to the project? Start here:**
 
-1. **[README.md](README.md)** - Project overview and quick start
+1. **[READY_TO_USE.md](READY_TO_USE.md)** - Everything is ready! Start now
+   - Quick start commands
+   - What's already configured
+   - Try these commands
+   - Verification steps
+
+2. **[README.md](README.md)** - Project overview and quick start
    - What is this project?
    - Key features
    - Quick installation steps
    - Basic usage
 
-2. **[SETUP_GUIDE.md](SETUP_GUIDE.md)** - Detailed setup instructions
+3. **[QUICK_START.md](QUICK_START.md)** - 5-minute setup guide
+   - Prerequisites check
+   - 3-step setup
+   - First steps
+   - Quick tips
+
+4. **[OPENROUTER_SETUP.md](OPENROUTER_SETUP.md)** - OpenRouter API guide
+   - Why OpenRouter?
+   - Getting API key
+   - Configuration
+   - Available models
+   - Pricing
+   - Troubleshooting
+
+5. **[OPENROUTER_MIGRATION.md](OPENROUTER_MIGRATION.md)** - Migration details
+   - What changed
+   - Verification
+   - Cost comparison
+   - Model switching
+
+6. **[SETUP_GUIDE.md](SETUP_GUIDE.md)** - Detailed setup instructions
    - Prerequisites
    - Step-by-step backend setup
    - Step-by-step frontend setup
    - Voice feature configuration
    - Troubleshooting common setup issues
 
-3. **[FEATURES.md](FEATURES.md)** - Complete feature documentation
+7. **[FEATURES.md](FEATURES.md)** - Complete feature documentation
    - User interface overview
    - Voice features
    - AI capabilities

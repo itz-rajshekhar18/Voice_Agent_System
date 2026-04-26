@@ -1,6 +1,6 @@
 # Voice-Enabled AI To-Do Agent
 
-A modern web application featuring a voice-enabled AI assistant powered by Claude (Anthropic). The assistant helps you manage tasks, remember important information, and have natural conversations.
+A modern web application featuring a voice-enabled AI assistant powered by GPT-4o Mini via OpenRouter. The assistant helps you manage tasks, remember important information, and have natural conversations.
 
 ## 🎯 Quick Links
 
@@ -17,14 +17,14 @@ A modern web application featuring a voice-enabled AI assistant powered by Claud
 - 🔊 **Voice Output**: The assistant speaks responses back to you
 - ✅ **Task Management**: Add, update, complete, and delete tasks
 - 🧠 **Memory System**: The assistant remembers important information about you
-- 💬 **Natural Conversations**: Chat naturally with Claude AI
+- 💬 **Natural Conversations**: Chat naturally with Claude AI via OpenRouter
 - 🎨 **Modern UI**: Beautiful, responsive interface built with React
 
 ## Architecture
 
 ### Backend (Python + Flask)
 - **Flask API**: RESTful API endpoints for frontend communication
-- **Claude Integration**: Uses Anthropic's Claude API for intelligent responses
+- **Claude Integration**: Uses OpenRouter API for access to Claude AI
 - **Tool Calling**: Agent can execute tools (add tasks, save memories, etc.)
 - **Persistent Storage**: Tasks and memories saved to JSON files
 
@@ -39,7 +39,7 @@ A modern web application featuring a voice-enabled AI assistant powered by Claud
 ### Prerequisites
 - Python 3.10+
 - Node.js 18+
-- Anthropic API Key
+- OpenRouter API Key (get one at https://openrouter.ai/)
 
 ### Backend Setup
 
@@ -48,29 +48,54 @@ A modern web application featuring a voice-enabled AI assistant powered by Claud
 cd backend
 ```
 
-2. Install Python dependencies:
+2. Create and activate virtual environment:
+
+**Windows PowerShell:**
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+**Windows CMD:**
+```cmd
+python -m venv venv
+venv\Scripts\activate.bat
+```
+
+**Linux/Mac:**
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+3. Install Python dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Set your Anthropic API key:
-```bash
-# Windows PowerShell
-$env:ANTHROPIC_API_KEY="your-api-key-here"
+4. Set your OpenRouter API key:
 
-# Windows CMD
-set ANTHROPIC_API_KEY=your-api-key-here
-
-# Linux/Mac
-export ANTHROPIC_API_KEY=your-api-key-here
+Create or edit `backend/.env`:
+```env
+OPENROUTER_API_KEY=your-api-key-here
+PORT=5000
+FLASK_ENV=development
 ```
 
-4. Start the Flask API server:
+Or set as environment variable:
+```powershell
+# Windows PowerShell
+$env:OPENROUTER_API_KEY="your-api-key-here"
+```
+
+5. Start the Flask API server:
 ```bash
 python api.py
 ```
 
 The backend will run on `http://localhost:5000`
+
+**Note:** Always activate the virtual environment before working on the backend!
 
 ### Frontend Setup
 
