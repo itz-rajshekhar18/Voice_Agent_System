@@ -1,0 +1,98 @@
+.memory-panel {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+}
+
+.memory-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.memory-header h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.memory-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
+
+.memory-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.memory-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.memory-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.memory-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #999;
+}
+
+.empty-state p {
+  margin: 0.5rem 0;
+}
+
+.empty-hint {
+  font-size: 0.875rem;
+  color: #bbb;
+}
+
+.memory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.memory-item {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #f093fb;
+  transition: all 0.2s;
+}
+
+.memory-item:hover {
+  background: #e9ecef;
+  transform: translateX(4px);
+}
+
+.memory-key {
+  font-weight: 600;
+  color: #f5576c;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.memory-value {
+  color: #333;
+  line-height: 1.5;
+  word-wrap: break-word;
+}

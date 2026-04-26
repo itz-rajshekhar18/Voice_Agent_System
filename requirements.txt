@@ -1,5 +1,0 @@
-langchain-core>=1.2.0
-langchain-google-genai>=4.2.0
-langchain-openai>=1.1.0
-langgraph>=1.1.0
-python-dotenv>=1.0.0

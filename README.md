@@ -1,183 +1,206 @@
-# Multi-Agent Travel Planner System
+# Voice-Enabled AI To-Do Agent
 
-A sophisticated AI-powered travel planning system built with LangChain, LangGraph, and multiple LLM providers (Gemini, OpenAI, OpenRouter).
+A modern web application featuring a voice-enabled AI assistant powered by Claude (Anthropic). The assistant helps you manage tasks, remember important information, and have natural conversations.
 
-## 🌟 Features
+## 🎯 Quick Links
 
-- **4 Specialized AI Agents** working collaboratively:
-  - 🗺️ **DestinationResearchAgent**: Researches destinations, weather, visa requirements, and local tips
-  - 🗓️ **ItineraryPlannerAgent**: Creates detailed day-by-day itineraries
-  - 💰 **BudgetEstimatorAgent**: Provides realistic cost estimates across budget tiers
-  - 📋 **TravelSummaryAgent**: Compiles everything into a polished travel guide
+- **[⚡ Quick Start](QUICK_START.md)** - Get running in 5 minutes
+- **[📚 Full Documentation](INDEX.md)** - Complete documentation index
+- **[🔧 Setup Guide](SETUP_GUIDE.md)** - Detailed installation instructions
+- **[✨ Features](FEATURES.md)** - All features explained
+- **[🏗️ Architecture](ARCHITECTURE.md)** - System design and architecture
+- **[🆘 Troubleshooting](TROUBLESHOOTING.md)** - Fix common issues
 
-- **Multi-LLM Support**: 
-  - Google Gemini (gemini-2.0-flash)
-  - OpenAI (gpt-4o-mini)
-  - OpenRouter (openai/gpt-4o-mini)
+## Features
 
-- **Smart Rate Limiting**: Automatic retry logic with exponential backoff for API rate limits
+- 🎤 **Voice Input**: Speak naturally to interact with the AI assistant
+- 🔊 **Voice Output**: The assistant speaks responses back to you
+- ✅ **Task Management**: Add, update, complete, and delete tasks
+- 🧠 **Memory System**: The assistant remembers important information about you
+- 💬 **Natural Conversations**: Chat naturally with Claude AI
+- 🎨 **Modern UI**: Beautiful, responsive interface built with React
 
-- **Interactive CLI**: User-friendly command-line interface for input
+## Architecture
 
-## 🚀 Quick Start
+### Backend (Python + Flask)
+- **Flask API**: RESTful API endpoints for frontend communication
+- **Claude Integration**: Uses Anthropic's Claude API for intelligent responses
+- **Tool Calling**: Agent can execute tools (add tasks, save memories, etc.)
+- **Persistent Storage**: Tasks and memories saved to JSON files
+
+### Frontend (React + TypeScript + Vite)
+- **React Components**: Modular, reusable UI components
+- **Web Speech API**: Browser-based voice recognition and synthesis
+- **Real-time Updates**: Instant UI updates when tasks/memories change
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Setup Instructions
 
 ### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- Anthropic API Key
 
-- Python 3.9+
-- API key for one of: Gemini, OpenAI, or OpenRouter
+### Backend Setup
 
-### Installation
-
-1. Clone the repository:
+1. Navigate to the backend directory:
 ```bash
-git clone <your-repo-url>
-cd <your-repo-name>
+cd backend
 ```
 
-2. Create a virtual environment:
-```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
-
-3. Install dependencies:
+2. Install Python dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Configure your API keys:
+3. Set your Anthropic API key:
 ```bash
-# Copy the example environment file
-cp .env.example .env
+# Windows PowerShell
+$env:ANTHROPIC_API_KEY="your-api-key-here"
 
-# Edit .env and add your API keys
-# GEMINI_API_KEY=your-gemini-api-key-here
-# OPENROUTER_API_KEY=your-openrouter-api-key-here
-# OPENAI_API_KEY=your-openai-api-key-here
+# Windows CMD
+set ANTHROPIC_API_KEY=your-api-key-here
+
+# Linux/Mac
+export ANTHROPIC_API_KEY=your-api-key-here
 ```
 
-5. Choose your LLM provider in `multi_agent_system.py`:
-```python
-# For OpenRouter (default)
-USE_OPENROUTER = True
-USE_OPENAI = False
-
-# For OpenAI
-USE_OPENROUTER = False
-USE_OPENAI = True
-
-# For Gemini
-USE_OPENROUTER = False
-USE_OPENAI = False
-```
-
-### Usage
-
-Run the travel planner:
+4. Start the Flask API server:
 ```bash
-python multi_agent_system.py
+python api.py
 ```
 
-You'll be prompted to enter:
-- Destination (e.g., "Tokyo, Japan")
-- Duration (e.g., "7")
-- Number of travelers (e.g., "2")
-- Interests (e.g., "culture, food, adventure")
-- Budget preference (budget / mid-range / luxury)
+The backend will run on `http://localhost:5000`
 
-The system will generate a comprehensive travel plan and optionally save it to `travel_plan.txt`.
+### Frontend Setup
 
-## 📋 Example Output
-
-The system generates:
-- **Trip Overview**: Summary of your travel preferences
-- **Destination Insights**: Key attractions, weather, visa requirements, safety tips
-- **Day-by-Day Itinerary**: Detailed activities for each day with timing and recommendations
-- **Budget Breakdown**: Itemized costs for flights, accommodation, food, activities, transport
-- **Pro Tips**: Practical advice for your trip
-
-## 🏗️ Architecture
-
-```
-START
-  ↓
-DestinationResearchAgent (researches destination)
-  ↓
-ItineraryPlannerAgent (creates itinerary)
-  ↓
-BudgetEstimatorAgent (estimates costs)
-  ↓
-TravelSummaryAgent (compiles final plan)
-  ↓
-END
+1. Navigate to the frontend directory:
+```bash
+cd voice_agent_system
 ```
 
-Built with **LangGraph** for orchestrating the multi-agent workflow with shared state management.
-
-## 🛠️ Technical Details
-
-- **Framework**: LangChain + LangGraph
-- **State Management**: TypedDict with message history
-- **Error Handling**: Exponential backoff retry logic for rate limits
-- **Rate Limiting**: 20-second delays between agent calls
-- **Max Retries**: 5 attempts with smart delay extraction from error messages
-
-## 📝 Configuration
-
-### API Keys
-
-All API keys are stored securely in the `.env` file (which is git-ignored). Never commit your `.env` file!
-
-1. Copy `.env.example` to `.env`
-2. Add your API keys to `.env`
-3. The application will automatically load them
-
-### Switching LLM Providers
-
-Edit the flags in `multi_agent_system.py`:
-
-```python
-USE_OPENROUTER = True   # For OpenRouter
-USE_OPENAI = False      # For OpenAI
-# Leave both False for Gemini
+2. Install Node dependencies:
+```bash
+npm install
 ```
 
-### Adjusting Rate Limits
-
-Modify the delays in agent functions:
-```python
-time.sleep(20)  # Adjust delay between agents (in seconds)
+3. Start the development server:
+```bash
+npm run dev
 ```
 
-## 🤝 Contributing
+The frontend will run on `http://localhost:5173`
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Usage
 
-## 📄 License
+1. **Start Both Servers**: Make sure both backend (port 5000) and frontend (port 5173) are running
 
-This project is open source and available under the MIT License.
+2. **Open the App**: Navigate to `http://localhost:5173` in your browser
 
-## 🐛 Troubleshooting
+3. **Grant Microphone Permission**: Allow microphone access when prompted
 
-### Rate Limit Errors
-- The system automatically retries with exponential backoff
-- If Gemini quota is exhausted, switch to OpenRouter or OpenAI
-- Free tier quotas reset daily
+4. **Interact with the Assistant**:
+   - Click the large voice button to speak
+   - Or type messages in the chat input
+   - The assistant will respond with voice and text
 
-### API Key Issues
-- Ensure API keys are correctly set in `.env` file
-- Never commit the `.env` file to version control
-- Use `.env.example` as a template
-- Verify the correct provider flag is set in `multi_agent_system.py`
+5. **Manage Tasks**:
+   - Say: "Add a task to buy groceries"
+   - Say: "What are my pending tasks?"
+   - Click checkboxes to mark tasks complete
+   - Click trash icons to delete tasks
 
-### Import Errors
-- Ensure all dependencies are installed: `pip install -r requirements.txt`
-- Activate virtual environment before running
+6. **Save Memories**:
+   - Say: "Remember that I prefer morning meetings"
+   - The assistant will automatically save important information
 
-## 📧 Contact
+## API Endpoints
 
-For questions or support, please open an issue on GitHub.
+### Chat
+- `POST /api/chat` - Send a message to the agent
+  - Body: `{"message": "your message"}`
+  - Returns: `{"response": "...", "todos": [...], "memories": {...}}`
 
----
+### Tasks
+- `GET /api/todos` - Get all tasks
+- `POST /api/todos` - Create a new task
+- `PUT /api/todos/:id` - Update a task
+- `DELETE /api/todos/:id` - Delete a task
 
-**Happy Travels! ✈️🌍**
+### Memories
+- `GET /api/memories` - Get all memories
+- `POST /api/memories` - Save a memory
+
+### Utility
+- `GET /api/health` - Health check
+- `POST /api/reset` - Reset conversation history
+
+## Project Structure
+
+```
+.
+├── backend/
+│   ├── agent.py           # Claude agent with tool calling
+│   ├── api.py             # Flask REST API
+│   ├── memory.py          # Memory storage system
+│   ├── todo_manager.py    # Task management
+│   ├── voice.py           # Voice interface (optional)
+│   ├── requirements.txt   # Python dependencies
+│   ├── todos.json         # Task storage
+│   └── memory.json        # Memory storage
+│
+└── voice_agent_system/
+    ├── src/
+    │   ├── components/
+    │   │   ├── ChatInterface.tsx    # Chat UI
+    │   │   ├── TodoList.tsx         # Task list UI
+    │   │   ├── MemoryPanel.tsx      # Memory display
+    │   │   └── VoiceButton.tsx      # Voice input button
+    │   ├── App.tsx                  # Main app component
+    │   └── main.tsx                 # Entry point
+    ├── package.json
+    └── vite.config.ts
+```
+
+## Technologies Used
+
+### Backend
+- Python 3.14
+- Flask - Web framework
+- Anthropic Claude API - AI assistant
+- SpeechRecognition - Voice input (optional)
+- pyttsx3 - Text-to-speech (optional)
+
+### Frontend
+- React 19 - UI framework
+- TypeScript - Type safety
+- Vite - Build tool
+- Web Speech API - Voice recognition & synthesis
+- CSS3 - Styling with animations
+
+## Browser Compatibility
+
+Voice features require:
+- Chrome/Edge (recommended)
+- Safari (limited support)
+- Firefox (limited support)
+
+## Troubleshooting
+
+### Backend Issues
+- **API Key Error**: Make sure `ANTHROPIC_API_KEY` environment variable is set
+- **Port 5000 in use**: Change port in `api.py` or stop conflicting service
+- **Module not found**: Run `pip install -r requirements.txt`
+
+### Frontend Issues
+- **CORS Error**: Ensure backend is running on port 5000
+- **Voice not working**: Check browser compatibility and microphone permissions
+- **Build errors**: Delete `node_modules` and run `npm install` again
+
+## License
+
+MIT License - feel free to use this project for learning and development!
+
+## Credits
+
+Built with ❤️ using Claude AI by Anthropic
